@@ -4,6 +4,9 @@ def LCV():
 def MVR():
     pass
 
-def forwardChecking():
-    nodes
+def forwardChecking(csp):
+    queue = list(csp.constraints)
+    
+    
+
 
