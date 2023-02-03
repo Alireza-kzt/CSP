@@ -19,13 +19,13 @@ class CSP:
         for group_number in range(csp.m):
             hall_numbers = list(map(int, input().split()))
             for hall_number in hall_numbers:
-                csp.halls[hall_number].domain.append(group_number)
+                csp.halls[hall_number].domain.add(group_number)
 
         csp.e = int(input())
 
         for c in range(csp.e):
             i, j = tuple(map(int, input().split()))
-            csp.halls[i].constraint.append(j)
+            csp.halls[i].constraint.add(j)
             csp.constraints.add((i, j))
 
         return csp
