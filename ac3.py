@@ -1,4 +1,7 @@
-def ac3(csp) -> bool:
+from csp import CSP
+
+
+def ac3(csp: CSP) -> bool:
     queue = list(csp.constraints)
 
     while len(queue) != 0:
