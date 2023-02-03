@@ -18,7 +18,7 @@ def revise(csp, i, j) -> bool:
 
     for x in csp.halls[i].domain.copy():
         if not csp.halls[j].domain - {x}:
-            csp.halls[j].domain.remove(x)
+            csp.halls[i].domain.remove(x)
             revised = True
 
     return revised
