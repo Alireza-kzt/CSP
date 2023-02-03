@@ -9,18 +9,23 @@ class CSP:
         self.halls = {}
         self.constraints = set()
 
-    def from_input(self):
-        self.n, self.m = tuple(map(int, input().split()))
-        self.halls = {i: Hall() for i in range(1, self.n + 1)}
+    @staticmethod
+    def from_input() -> 'CSP':
+        csp = CSP()
 
-        for group_number in range(self.n):
-            hall_numbers = list(input().split())
+        csp.n, csp.m = tuple(map(int, input().split()))
+        csp.halls = {i: Hall() for i in range(1, csp.n + 1)}
+
+        for group_number in range(csp.m):
+            hall_numbers = list(map(int, input().split()))
             for hall_number in hall_numbers:
-                self.halls[hall_number].domain.add(group_number)
+                csp.halls[hall_number].domain.append(group_number)
 
-        self.e = int(input())
+        csp.e = int(input())
 
-        for c in range(self.e):
+        for c in range(csp.e):
             i, j = tuple(map(int, input().split()))
-            self.halls[i].constraint.add(j)
-            self.constraints.add((i, j))
+            csp.halls[i].constraint.append(j)
+            csp.constraints.add((i, j))
+
+        return csp
