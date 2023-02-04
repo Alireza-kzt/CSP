@@ -37,10 +37,6 @@ def forward_checking(csp: CSP, hall_index: int, value: int):
         if value in csp.halls[neighbor].domain:
             csp.halls[neighbor].domain.remove(value)
 
-    # for i in range(1, csp.n + 1):
-    #     if hall_index in csp.halls[i].constraint:
-    #         csp.halls[i].domain = csp.halls[i].domain - {value}
-
     return csp
 
 
@@ -51,11 +47,6 @@ def conflict(csp: CSP, hall_index: int, value, assignment):
         if h in assignment:
             if assignment[h] == value:
                 return True
-
-    # for i in range(1, csp.n + 1):
-    #     if hall_index in csp.halls[i].constraint and i in assignment:
-    #         if assignment[i] == value:
-    #             return True
 
     return False
 
@@ -88,6 +79,6 @@ def backtracking(csp: CSP, use_ac3=False):
 
     assignment = __backtracking(csp, {})
     if assignment:
-        return str(assignment.values())
+        return "".join(f"{i} "for i in assignment.values())
     else:
         return "NO"
