@@ -4,10 +4,10 @@ from ac3 import ac3
 
 
 def lcv(hall: Hall, assignment):
-    return sorted(hall.domain, key=lambda value: nconflicts(hall, value, assignment))
+    return sorted(hall.domain, key=lambda value: number_of_conflicts(hall, value, assignment))
 
 
-def nconflicts(hall, value, assignment) -> int:
+def number_of_conflicts(hall, value, assignment) -> int:
     n = 0
 
     for neighbor in hall.domain:
@@ -88,6 +88,6 @@ def backtracking(csp: CSP, use_ac3=False):
 
     assignment = __backtracking(csp, {})
     if assignment:
-        return assignment
+        return str(assignment.values())
     else:
         return "NO"
