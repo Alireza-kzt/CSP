@@ -79,6 +79,6 @@ def backtracking(csp: CSP, use_ac3=False):
 
     assignment = __backtracking(csp, {})
     if assignment:
-        return "".join(f"{i} "for i in assignment.values())
+        return "".join(f"{i + 1} "for i in assignment.values())
     else:
         return "NO"
