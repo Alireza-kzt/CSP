@@ -59,8 +59,9 @@ def conflict(csp: CSP, hall_index: int, value, assignment):
     return False
 
 
-def backtracking(csp: CSP, assignment: dict = dict(), use_ac3=False) -> dict():
-    if len(assignment) == csp.n: return assignment
+def __backtracking(csp: CSP, assignment: dict) -> dict():
+    if len(assignment) == csp.n:
+        return assignment
 
     hall_index = mrv(csp, assignment)
     hall = csp.halls[hall_index]
@@ -68,18 +69,24 @@ def backtracking(csp: CSP, assignment: dict = dict(), use_ac3=False) -> dict():
     for value in lcv(hall, assignment):
         if not conflict(csp, hall_index, value, assignment):
             assignment[hall_index] = value
-
-            if use_ac3:
-                _csp = csp.copy()
-                if not ac3(_csp): return False
-            else:
-                _csp = forward_checking(csp, hall_index, value)
-
-            result = backtracking(_csp, assignment)
-
+            csp = forward_checking(csp, hall_index, value)
+            result = __backtracking(csp, assignment)
             if result is False:
                 assignment.pop(hall_index)
             else:
                 return assignment
 
     return False
+
+
+def backtracking(csp: CSP, use_ac3=False):
+    if use_ac3:
+        succeed = ac3(csp)
+        if not succeed:
+            return "NO"
+
+    assignment = __backtracking(csp, {})
+    if assignment:
+        return assignment
+    else:
+        return "NO"
