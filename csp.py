@@ -2,13 +2,23 @@ from hall import Hall
 
 
 class CSP:
-    def __init__(self) -> None:
-        self.n = None
-        self.m = None
-        self.e = None
-        self.halls = {}
-        self.constraints = set()
+    def __init__(self,csp:'CSP'=None) -> None:
+        if csp is None:
+            self.n = None
+            self.m = None
+            self.e = None
+            self.halls = {}
+            self.constraints = set()
+        else:
+            self.n = csp.n
+            self.m = csp.m
+            self.e = csp.e
+            self.halls = {i: Hall(csp.halls[i]) for i in range(1, csp.n + 1)}
+            self.constraints = set(constraint.copy() for constraint in self.constraints)
 
+    def copy(self) -> 'CSP':
+        return CSP(self)
+    
     @staticmethod
     def from_input() -> 'CSP':
         csp = CSP()
