@@ -26,8 +26,6 @@ class CSP:
         csp.n, csp.m = tuple(map(int, input().split()))
         csp.halls = {i: Hall() for i in range(1, csp.n + 1)}
 
-
-        
         for group_number in range(csp.m):
             hall_numbers = list(map(int, input().split()))
             for hall_number in hall_numbers:
@@ -41,16 +39,17 @@ class CSP:
             csp.constraints.add((i, j))
 
         return csp
-    
-    def generate(n,m,e):
+
+    @staticmethod
+    def generate(n, m, e):
         from random import randint as rant
         from random import choices
         csp = CSP()
         csp.n, csp.m = tuple(map(int, f"{n} {m}".split()))
         csp.halls = {i: Hall() for i in range(1, csp.n + 1)}
-        L = [str(i) for i in range(1,n+1)]
+        L = [str(i) for i in range(1, n + 1)]
         for group_number in range(csp.m):
-            hall_numbers = list(map(int,choices(L,k=rant(1,n))))
+            hall_numbers = list(map(int, choices(L, k=rant(1, n))))
             for hall_number in hall_numbers:
                 csp.halls[hall_number].domain.add(group_number)
 
@@ -59,8 +58,8 @@ class CSP:
         edges = set()
 
         while len(edges) != csp.e:
-            t = tuple(x for x in choices(L,k=2))
-            t_e = (t[1],t[0])
+            t = tuple(x for x in choices(L, k=2))
+            t_e = (t[1], t[0])
             if t_e not in edges:
                 edges.add(t)
 
@@ -69,4 +68,4 @@ class CSP:
             csp.halls[i].constraint.add(j)
             csp.constraints.add((i, j))
 
-        return csp        
+        return csp
