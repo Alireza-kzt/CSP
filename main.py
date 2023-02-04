@@ -1,4 +1,3 @@
-from ac3 import ac3
 from csp import CSP
 from backtracking import backtracking
 from datetime import datetime
