@@ -1,4 +1,6 @@
 from csp import CSP
+from hall import Hall
+
 def LCV():
     pass
 
@@ -16,8 +18,12 @@ def MVR(csp:CSP, assignment:dict):
         
     
 
-def forwardChecking(csp:CSP,assignment:dict):
-    pass
+def forwardChecking(csp:CSP,hall:Hall,value:int):
+    csp = csp.copy()
+    # TODO
+    return csp
+    
+    
 
 def conflict(csp,hall,value,assignment):
     for hall_index in hall.constraint:
