@@ -84,7 +84,7 @@ def backtracking(csp: CSP, use_ac3=False):
     if use_ac3:
         succeed = ac3(csp)
         if not succeed:
-            return "No"
+            return "NO"
 
     assignment = __backtracking(csp, {})
     if assignment:
