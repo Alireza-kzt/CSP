@@ -4,5 +4,5 @@ from backtracking import forwardChecking
 
 if __name__ == '__main__':
     csp = CSP.from_input()
-    
+
     print(forwardChecking(csp))

@@ -2,7 +2,7 @@ from hall import Hall
 
 
 class CSP:
-    def __init__(self,csp:'CSP'=None) -> None:
+    def __init__(self, csp: 'CSP' = None) -> None:
         if csp is None:
             self.n = None
             self.m = None
@@ -18,7 +18,7 @@ class CSP:
 
     def copy(self) -> 'CSP':
         return CSP(self)
-    
+
     @staticmethod
     def from_input() -> 'CSP':
         csp = CSP()
