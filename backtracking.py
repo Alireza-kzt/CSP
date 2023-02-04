@@ -4,8 +4,16 @@ def LCV():
 
 def MVR(csp:CSP, assignment:dict):
     choosed = set(assignment.keys())
-    neighbors = [ len(hall.constraint - choosed) for hall in csp.halls ]
-    neighbors.sort()
+    
+    neighbors = [ (i,len(csp.halls[i].constraint - choosed)) for i in range(1,csp.n+1) ]
+    neighbors.sort(key=lambda x: x[1])
+    
+    for index_hall , count_of_neighbors_not_assign in neighbors:
+        if index_hall not in assignment:
+            return index_hall
+        
+    return None
+        
     
 
 def forwardChecking(csp:CSP,assignment:dict):
