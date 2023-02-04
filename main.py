@@ -3,8 +3,10 @@ from backtracking import backtracking
 from datetime import datetime
 
 if __name__ == '__main__':
-    csp = CSP.from_input()
-    
+    start = datetime.now()
+    csp = CSP.generate(500,500,1000)
+    end = datetime.now()
+    print(end-start)
     start = datetime.now()
     print(backtracking(csp.copy()))
     end = datetime.now()
