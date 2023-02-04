@@ -20,7 +20,8 @@ def MVR(csp:CSP, assignment:dict):
 
 def forwardChecking(csp:CSP,hall:Hall,value:int):
     csp = csp.copy()
-    # TODO
+    for neighbor in hall.constraint:
+        csp.halls[neighbor].domain = csp.halls[neighbor].domain - {value}
     return csp
     
     
