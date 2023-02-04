@@ -36,6 +36,7 @@ class CSP:
         for c in range(csp.e):
             i, j = tuple(map(int, input().split()))
             csp.halls[i].constraint.add(j)
+            csp.halls[j].parent.add(i)
             csp.constraints.add((i, j))
 
         return csp
@@ -66,6 +67,7 @@ class CSP:
         for edge in edges:
             i, j = tuple(map(int, f"{edge[0]} {edge[1]}".split()))
             csp.halls[i].constraint.add(j)
+            csp.halls[j].parent.add(i)
             csp.constraints.add((i, j))
 
         return csp

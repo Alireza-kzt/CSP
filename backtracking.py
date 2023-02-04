@@ -32,13 +32,14 @@ def mrv(csp: CSP, assignment: dict):
 def forward_checking(csp: CSP, hall_index: int, value: int):
     hall = csp.halls[hall_index]
 
-    csp = csp.copy()
-    for neighbor in hall.constraint:
-        csp.halls[neighbor].domain = csp.halls[neighbor].domain - {value}
+    csp = csp.copy() 
+    for neighbor in hall.constraint.union(hall.parent):
+        if value in csp.halls[neighbor].domain:
+            csp.halls[neighbor].domain.remove(value)
 
-    for i in range(1, csp.n + 1):
-        if hall_index in csp.halls[i].constraint:
-            csp.halls[i].domain = csp.halls[i].domain - {value}
+    # for i in range(1, csp.n + 1):
+    #     if hall_index in csp.halls[i].constraint:
+    #         csp.halls[i].domain = csp.halls[i].domain - {value}
 
     return csp
 
@@ -46,15 +47,15 @@ def forward_checking(csp: CSP, hall_index: int, value: int):
 def conflict(csp: CSP, hall_index: int, value, assignment):
     hall = csp.halls[hall_index]
 
-    for h in hall.constraint:
+    for h in hall.constraint.union(hall.parent):
         if h in assignment:
             if assignment[h] == value:
                 return True
 
-    for i in range(1, csp.n + 1):
-        if hall_index in csp.halls[i].constraint and i in assignment:
-            if assignment[i] == value:
-                return True
+    # for i in range(1, csp.n + 1):
+    #     if hall_index in csp.halls[i].constraint and i in assignment:
+    #         if assignment[i] == value:
+    #             return True
 
     return False
 
@@ -83,7 +84,7 @@ def backtracking(csp: CSP, use_ac3=False):
     if use_ac3:
         succeed = ac3(csp)
         if not succeed:
-            return "NO"
+            return "No"
 
     assignment = __backtracking(csp, {})
     if assignment:
