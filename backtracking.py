@@ -6,9 +6,8 @@ def LCV():
 
 
 def MVR(csp:CSP, assignment:dict):
-    choosed = set(assignment.values())
     
-    neighbors = [ (i,len(csp.halls[i].domain - choosed)) for i in range(1,csp.n+1) ]
+    neighbors = [ (i,len(csp.halls[i].domain)) for i in range(1,csp.n+1) ]
     neighbors.sort(key=lambda x: x[1])
     
     for index_hall , count_of_neighbors_not_assign in neighbors:
@@ -18,11 +17,19 @@ def MVR(csp:CSP, assignment:dict):
     return None
         
 
-def forwardChecking(csp:CSP,hall:Hall,value:int):
+def forwardChecking(csp:CSP,hall:Hall,hall_index:int,value:int):
     csp = csp.copy()
     for neighbor in hall.constraint:
         csp.halls[neighbor].domain = csp.halls[neighbor].domain - {value}
+        
+    for i in range(1,csp.n+1):
+        if hall_index in csp.halls[i].constraint:
+            csp.halls[i].domain = csp.halls[i].domain - {value}
+            
     return csp
+
+
+
     
     
 def conflict(csp,hall,value,assignment):
@@ -42,7 +49,7 @@ def backtracking(csp:CSP, assignment:dict=dict()) -> dict():
     for value in LCV(csp,hall.domain,assignment):
         if not conflict(csp,hall,value,assignment):
             assignment[hall_index] = value
-            result = backtracking(forwardChecking(csp,hall,value), assignment)
+            result = backtracking(forwardChecking(csp,hall,hall_index,value), assignment)
             if result is False :
                 assignment.pop(hall_index)
             else:
