@@ -2,8 +2,11 @@ from csp import CSP
 def LCV():
     pass
 
-def MVR():
-    pass
+def MVR(csp:CSP, assignment:dict):
+    choosed = set(assignment.keys())
+    neighbors = [ len(hall.constraint - choosed) for hall in csp.halls ]
+    neighbors.sort()
+    
 
 def forwardChecking(csp:CSP,assignment:dict):
     pass
@@ -26,7 +29,7 @@ def backtracking(csp:CSP, assignment:dict=dict()) -> dict():
             assignment[hall_index] = value
             result = backtracking(forwardChecking(csp,hall,value), assignment)
             if result is False :
-                result.pop(hall_index)
+                assignment.pop(hall_index)
             else:
                 return assignment
     
