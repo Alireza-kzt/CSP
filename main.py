@@ -12,6 +12,6 @@ if __name__ == '__main__':
     end = datetime.now()
     print(end - start)
     start = datetime.now()
-    print(backtracking(csp.copy(), AI_ac3=True))
+    print(backtracking(csp.copy(), use_ac3=True))
     end = datetime.now()
     print(end - start)

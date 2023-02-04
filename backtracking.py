@@ -18,7 +18,7 @@ def nconflicts(hall, value, assignment) -> int:
     return n
 
 
-def MRV(csp: CSP, assignment: dict):
+def mrv(csp: CSP, assignment: dict):
     neighbors = [(i, len(csp.halls[i].domain)) for i in range(1, csp.n + 1)]
     neighbors.sort(key=lambda x: x[1])
 
@@ -29,7 +29,7 @@ def MRV(csp: CSP, assignment: dict):
     return None
 
 
-def forwardChecking(csp: CSP, hall_index: int, value: int):
+def forward_checking(csp: CSP, hall_index: int, value: int):
     hall = csp.halls[hall_index]
 
     csp = csp.copy()
@@ -59,21 +59,21 @@ def conflict(csp: CSP, hall_index: int, value, assignment):
     return False
 
 
-def backtracking(csp: CSP, assignment: dict = dict(), AI_ac3=False) -> dict():
+def backtracking(csp: CSP, assignment: dict = dict(), use_ac3=False) -> dict():
     if len(assignment) == csp.n: return assignment
 
-    hall_index = MRV(csp, assignment)
+    hall_index = mrv(csp, assignment)
     hall = csp.halls[hall_index]
 
     for value in lcv(hall, assignment):
         if not conflict(csp, hall_index, value, assignment):
             assignment[hall_index] = value
 
-            if AI_ac3:
+            if use_ac3:
                 _csp = csp.copy()
                 if not ac3(_csp): return False
             else:
-                _csp = forwardChecking(csp, hall_index, value)
+                _csp = forward_checking(csp, hall_index, value)
 
             result = backtracking(_csp, assignment)
 
