@@ -3,7 +3,7 @@ from hall import Hall
 from ac3 import ac3
 
 
-def lcv(hall: Hall, assignment):
+def lcv(hall: Hall, assignment) -> list:
     return sorted(hall.domain, key=lambda value: number_of_conflicts(hall, value, assignment))
 
 
