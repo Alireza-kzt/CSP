@@ -18,13 +18,10 @@ def ac3(csp: CSP) -> bool:
 
 def revise(csp, i, j) -> bool:
     revised = False
-    deleted = set()
 
-    for x in csp.halls[i].domain:
-        if not csp.halls[j].domain - {x}:
-            deleted.add(x)
+    for value in csp.halls[i].domain.copy():
+        if len(csp.halls[j].domain - {value}) == 0:
+            csp.halls[i].domain.remove(value)
             revised = True
-
-    csp.halls[i].domain = csp.halls[j].domain - deleted
 
     return revised

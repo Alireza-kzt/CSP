@@ -3,11 +3,11 @@ from hall import Hall
 from ac3 import ac3
 
 
-def lcv(hall: Hall, assignment):
-    return sorted(hall.domain, key=lambda value: nconflicts(hall, value, assignment))
+def lcv(hall: Hall, assignment) -> list:
+    return sorted(hall.domain, key=lambda value: number_of_conflicts(hall, value, assignment))
 
 
-def nconflicts(hall, value, assignment) -> int:
+def number_of_conflicts(hall, value, assignment) -> int:
     n = 0
 
     for neighbor in hall.domain:
@@ -37,10 +37,6 @@ def forward_checking(csp: CSP, hall_index: int, value: int):
         if value in csp.halls[neighbor].domain:
             csp.halls[neighbor].domain.remove(value)
 
-    # for i in range(1, csp.n + 1):
-    #     if hall_index in csp.halls[i].constraint:
-    #         csp.halls[i].domain = csp.halls[i].domain - {value}
-
     return csp
 
 
@@ -51,11 +47,6 @@ def conflict(csp: CSP, hall_index: int, value, assignment):
         if h in assignment:
             if assignment[h] == value:
                 return True
-
-    # for i in range(1, csp.n + 1):
-    #     if hall_index in csp.halls[i].constraint and i in assignment:
-    #         if assignment[i] == value:
-    #             return True
 
     return False
 
@@ -88,6 +79,6 @@ def backtracking(csp: CSP, use_ac3=False):
 
     assignment = __backtracking(csp, {})
     if assignment:
-        return assignment
+        return "".join(f"{i + 1} "for i in assignment.values())
     else:
         return "NO"
